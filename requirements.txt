@@ -1,0 +1,9 @@
+# Runtime dependencies
+numpy>=1.26,<3.0
+pandas>=2.2,<4.0
+plotly>=5.20,<7.0
+streamlit>=1.32,<2.0
+
+# Development and quality checks
+pytest>=8.0,<10.0
+ruff>=0.9,<1.0

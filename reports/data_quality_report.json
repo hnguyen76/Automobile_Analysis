@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "2026-07-24T18:02:26+00:00",
+  "source_rows": 5500,
+  "output_rows": 5500,
+  "source_columns": 18,
+  "output_columns": 57,
+  "exact_duplicates_removed": 0,
+  "source_missing_cells": 7316,
+  "source_missing_pct": 7.39,
+  "source_cell_completeness_pct": 92.61,
+  "fully_complete_source_rows": 1329,
+  "fully_complete_source_rows_pct": 24.16,
+  "source_missing_by_column": {
+    "make": 0,
+    "model": 0,
+    "year": 0,
+    "fuel_type": 0,
+    "transmission": 827,
+    "engine_size": 844,
+    "mileage": 0,
+    "horsepower": 800,
+    "torque": 799,
+    "owners": 0,
+    "accident_history": 812,
+    "service_history": 855,
+    "color": 803,
+    "body_type": 0,
+    "drivetrain": 0,
+    "fuel_efficiency": 794,
+    "location": 782,
+    "selling_price": 0
+  },
+  "invalid_numeric_by_column": {
+    "year": 0,
+    "engine_size": 0,
+    "mileage": 0,
+    "horsepower": 0,
+    "torque": 0,
+    "owners": 0,
+    "accident_history": 0,
+    "fuel_efficiency": 0,
+    "selling_price": 0
+  },
+  "imputed_by_column": {
+    "engine_size": 844,
+    "horsepower": 800,
+    "torque": 799,
+    "fuel_efficiency": 794
+  },
+  "unknown_category_counts": {
+    "transmission": 827,
+    "service_history": 855,
+    "color": 803,
+    "location": 782,
+    "accident_history": 812
+  },
+  "quality_flags": {
+    "price_floor_500": 1216,
+    "mileage_floor_100": 273,
+    "mileage_floor_review": 88,
+    "high_mileage_over_300k": 226,
+    "electric_manual_anomaly": 1,
+    "rows_needing_review": 1306
+  },
+  "reference_model_year": 2024,
+  "validation": {
+    "vehicle_id_unique": true,
+    "critical_fields_complete": true,
+    "numeric_imputation_complete": true,
+    "all_electric_engine_sizes_zero": true
+  }
+}
