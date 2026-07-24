@@ -70,10 +70,24 @@ Vehicle Count columns, with the columns set to **85% opacity** for clear visual
 comparison.
 
 Download the `.pbix` file and open it in Power BI Desktop; no Python setup is
-required to view the saved report. A local source-path update is required only
-when refreshing the embedded data. See the
-[Power BI report guide](Power%20BI/README.md) for opening, refresh, measure, and
-interpretation details.
+required to view the saved report. See the
+[Power BI report guide](Power%20BI/README.md) for opening, Service deployment,
+refresh, measure, RLS, and interpretation details.
+
+The report is also published in the **Finance Analytics [Test]** Power BI
+Service workspace. Its Import-mode semantic model reads the cleaned dataset
+from the public GitHub Web CSV and is scheduled to refresh daily at
+**6:00 AM Eastern Time (US and Canada)**. A manual refresh completed
+successfully on **July 24, 2026 at 3:49:19 PM ET**, validating the Web source
+and Service refresh configuration.
+
+Five RLS roles segment read-only consumers into Northeast, Midwest, South,
+West, and unknown-location data-quality views. The roles are published with
+their DAX filters but currently have **0 members each**. RLS applies to
+**Viewer/read-only consumers**; workspace Admin, Member, and Contributor roles
+are not constrained by these filters. See the
+[Power BI report guide](Power%20BI/README.md#row-level-security) for the full
+role-to-DAX mapping and assignment notes.
 
 ## Dashboard experience
 

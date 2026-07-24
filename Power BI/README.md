@@ -60,20 +60,67 @@ populated. Power BI Desktop may display a version-compatibility prompt if an
 older release is installed; updating to the current Desktop release resolves
 that issue.
 
+## Power BI Service deployment
+
+The report and semantic model are published to the
+**Finance Analytics [Test]** workspace with the following operating
+configuration:
+
+| Setting | Published configuration |
+|---|---|
+| Storage mode | Import |
+| Data source | Public GitHub Web CSV |
+| Source file | [`data/processed/automobile_cleaned.csv`](https://raw.githubusercontent.com/hnguyen76/Automobile_Analysis/main/data/processed/automobile_cleaned.csv) |
+| Scheduled refresh | Daily at **6:00 AM** |
+| Time zone | **Eastern Time (US and Canada)** |
+| Refresh validation | Manual refresh completed successfully on **July 24, 2026 at 3:49:19 PM ET** |
+| Next scheduled refresh | **July 25, 2026 at 6:00 AM ET** |
+
+Import mode keeps a managed snapshot in the Power BI semantic model. The
+scheduled refresh retrieves the current cleaned CSV from the public GitHub Web
+source and updates report visuals after the import completes.
+
+## Row-level security
+
+Five static row-level security (RLS) roles are defined on the `location`
+column:
+
+| Role | DAX row filter | Data scope |
+|---|---|---|
+| `RLS_Northeast` | `[location] IN {"NY", "PA"}` | New York and Pennsylvania |
+| `RLS_Midwest` | `[location] IN {"IL", "MI", "OH"}` | Illinois, Michigan, and Ohio |
+| `RLS_South` | `[location] IN {"FL", "GA", "NC", "TX"}` | Florida, Georgia, North Carolina, and Texas |
+| `RLS_West` | `[location] = "CA"` | California |
+| `RLS_DataQuality` | `[location] = "Unknown"` | Records whose location is unknown |
+
+All five roles are published and currently show **0 members**. No users or
+groups have been assigned yet, so role membership must be configured before
+the regional views are distributed.
+
+RLS is intended for **Viewer/read-only consumers** of the published content.
+Power BI workspace Admin, Member, and Contributor roles are not restricted by
+these RLS filters. Assign consumers read-only access and add them to the
+appropriate RLS role; assigning a role does not itself grant access to the
+report.
+
 ## Refreshing the data
 
-The report is delivered with embedded imported data, so a refresh is not
-required for viewing. To refresh it with a newer project export:
+The downloaded report includes imported data, so a refresh is not required for
+viewing. The published semantic model refreshes automatically from the public
+GitHub Web CSV every day at 6:00 AM Eastern Time.
+
+To publish updated source data:
 
 1. Run `python scripts/clean_data.py` from the repository root.
-2. In Power BI Desktop, open **Transform data > Data source settings**.
-3. Change the CSV source to
-   `data/processed/automobile_cleaned.csv` in your local clone.
-4. Select **Refresh**, validate the visuals, and save the report.
+2. Validate and commit the updated
+   `data/processed/automobile_cleaned.csv` file to the `main` branch.
+3. In Power BI Service, run an on-demand refresh or wait for the next daily
+   scheduled refresh.
+4. Confirm the refresh history shows `Completed` and validate the report
+   visuals.
 
-Because local clone locations differ, Power BI may ask you to update the source
-path before the first refresh. This does not affect the data already embedded
-in the downloaded report.
+Power BI Desktop can also refresh the Import model directly from the same
+GitHub Web source while an internet connection is available.
 
 ## Interpretation notes
 
