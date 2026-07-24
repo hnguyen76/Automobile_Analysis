@@ -19,7 +19,7 @@ def test_price_lines_render_above_inventory_columns() -> None:
     average = traces["Average price"]
     median = traces["Median price"]
 
-    assert 0.65 <= vehicles["opacity"] <= 0.75
+    assert vehicles["opacity"] == 0.85
     assert vehicles["zorder"] < average["zorder"] < median["zorder"]
     assert average["line"]["width"] >= 4
     assert median["line"]["width"] >= 3
