@@ -10,7 +10,7 @@
 [![Code style: Ruff](https://img.shields.io/badge/Code%20Style-Ruff-D7FF64?logo=ruff&logoColor=black)](https://docs.astral.sh/ruff/)
 
 **Created by Hieu Nguyen**
-
+Click here to access dashboard: https://automobileanalysis-irybegenoqkyndth2o784z.streamlit.app/
 </div>
 
 ![Automobile Intelligence Dashboard](assets/dashboard-preview.png)
