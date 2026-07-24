@@ -57,6 +57,24 @@ Selected insights:
 Read the complete interpretation in
 [reports/business_insights.md](reports/business_insights.md).
 
+## Microsoft Power BI report
+
+**[Download the ready-to-open Power BI report](Power%20BI/Automobile_Analysis_PowerBI.pbix)**
+
+The repository includes a native Microsoft Power BI Desktop report with an
+embedded snapshot of the cleaned dataset. Its **Executive Overview** and
+**Business Insights** pages combine KPI cards, 11 reusable DAX measures, model
+and fuel-mix visuals, data-quality indicators, and decision-ready commentary.
+The model-level combo chart places Average Price and Median Price lines above
+Vehicle Count columns, with the columns set to **85% opacity** for clear visual
+comparison.
+
+Download the `.pbix` file and open it in Power BI Desktop; no Python setup is
+required to view the saved report. A local source-path update is required only
+when refreshing the embedded data. See the
+[Power BI report guide](Power%20BI/README.md) for opening, refresh, measure, and
+interpretation details.
+
 ## Dashboard experience
 
 The app is organized into four analysis views:
