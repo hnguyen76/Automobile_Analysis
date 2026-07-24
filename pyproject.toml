@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "automobile-analysis"
+version = "1.0.0"
+description = "A reproducible automobile data-cleaning workflow and interactive analytics dashboard."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Hieu Nguyen" },
+]
+dependencies = [
+    "numpy>=1.26,<3.0",
+    "pandas>=2.2,<4.0",
+    "plotly>=5.20,<7.0",
+    "streamlit>=1.32,<2.0",
+]
+
+[project.urls]
+Repository = "https://github.com/hnguyen76/Automobile_Analysis"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<10.0",
+    "ruff>=0.9,<1.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+minversion = "8.0"
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+    "data",
+]
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "F",
+    "I",
+    "SIM",
+    "UP",
+]
+ignore = [
+    "E501",
+]
+
+[tool.ruff.format]
+indent-style = "space"
+line-ending = "lf"
+quote-style = "double"
