@@ -126,6 +126,7 @@ Automobile_Analysis/
 │       └── cleaning.py
 ├── tests/
 │   ├── test_analytics.py
+│   ├── test_dashboard_rendering.py
 │   └── test_cleaning.py
 ├── app.py
 ├── pyproject.toml
