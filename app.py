@@ -853,10 +853,10 @@ with tabs[0]:
             y=year_summary["vehicles"],
             name="Vehicles",
             marker={
-                "color": "#CFE4F7",
-                "line": {"color": "#B7D7F0", "width": 0.5},
+                "color": "#A9D3F2",
+                "line": {"color": "#7CB6E2", "width": 0.7},
             },
-            opacity=0.42,
+            opacity=0.72,
             zorder=0,
             hovertemplate="Model year %{x}<br>Vehicles %{y:,.0f}<extra></extra>",
         ),
