@@ -551,6 +551,8 @@ def style_figure(
 ) -> go.Figure:
     """Apply a consistent, accessible Power BI-like Plotly theme."""
 
+    tooltip_background = "#050A0D" if IS_COCKPIT else COLORS["navy"]
+    tooltip_text = COLORS["ink"] if IS_COCKPIT else "#FFFFFF"
     figure.update_layout(
         height=height,
         margin=margin or {"l": 28, "r": 24, "t": 72, "b": 38},
@@ -563,9 +565,12 @@ def style_figure(
             "xanchor": "left",
         },
         hoverlabel={
-            "bgcolor": COLORS["navy"],
-            "font": {"color": "#FFFFFF", "family": "Segoe UI, Inter, Arial"},
-            "bordercolor": COLORS["navy"],
+            "bgcolor": tooltip_background,
+            "font": {
+                "color": tooltip_text,
+                "family": "Bahnschrift, Segoe UI, Inter, Arial",
+            },
+            "bordercolor": COLORS["blue"] if IS_COCKPIT else COLORS["navy"],
         },
         hovermode="closest",
         showlegend=legend,
