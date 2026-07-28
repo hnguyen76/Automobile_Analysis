@@ -34,7 +34,11 @@ def test_cockpit_tooltip_uses_readable_contrast() -> None:
 
     year_profile = json.loads(app.get("plotly_chart")[0].proto.spec)
     hoverlabel = year_profile["layout"]["hoverlabel"]
+    legend = year_profile["layout"]["legend"]
 
     assert hoverlabel["bgcolor"] == "#050A0D"
     assert hoverlabel["font"]["color"] == "#EAF7FF"
     assert hoverlabel["bordercolor"] == "#00D9FF"
+    assert legend["font"]["color"] == "#EAF7FF"
+    assert legend["bgcolor"] == "rgba(5,10,13,0.88)"
+    assert legend["borderwidth"] == 1

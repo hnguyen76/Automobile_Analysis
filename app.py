@@ -553,6 +553,7 @@ def style_figure(
 
     tooltip_background = "#050A0D" if IS_COCKPIT else COLORS["navy"]
     tooltip_text = COLORS["ink"] if IS_COCKPIT else "#FFFFFF"
+    legend_background = "rgba(5,10,13,0.88)" if IS_COCKPIT else "rgba(0,0,0,0)"
     figure.update_layout(
         height=height,
         margin=margin or {"l": 28, "r": 24, "t": 72, "b": 38},
@@ -580,8 +581,11 @@ def style_figure(
             "y": 1.01,
             "xanchor": "right",
             "x": 1,
-            "font": {"size": 11},
-            "title": {"text": ""},
+            "font": {"size": 11, "color": COLORS["ink"]},
+            "title": {"text": "", "font": {"color": COLORS["ink"]}},
+            "bgcolor": legend_background,
+            "bordercolor": COLORS["border"],
+            "borderwidth": 1 if IS_COCKPIT else 0,
         },
     )
     figure.update_xaxes(
