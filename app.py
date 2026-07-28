@@ -38,22 +38,44 @@ PLOTLY_CONFIG = {
     "scrollZoom": False,
 }
 
-COLORS = {
-    "navy": "#0B1F3A",
-    "blue": "#118DFF",
-    "blue_dark": "#0A66C2",
-    "teal": "#01B8AA",
-    "amber": "#F2C80F",
-    "coral": "#FD625E",
-    "purple": "#8B5CF6",
-    "slate": "#64748B",
-    "ink": "#182230",
-    "muted": "#65758B",
-    "border": "#DDE4ED",
-    "surface": "#FFFFFF",
-    "background": "#F4F6F9",
-    "grid": "#E8EDF3",
+THEME_PRESETS = {
+    "Executive Light": {
+        "navy": "#0B1F3A",
+        "blue": "#118DFF",
+        "blue_dark": "#0A66C2",
+        "teal": "#01B8AA",
+        "amber": "#F2C80F",
+        "coral": "#FD625E",
+        "purple": "#8B5CF6",
+        "slate": "#64748B",
+        "ink": "#182230",
+        "muted": "#65758B",
+        "border": "#DDE4ED",
+        "surface": "#FFFFFF",
+        "background": "#F4F6F9",
+        "grid": "#E8EDF3",
+    },
+    "Automotive Cockpit": {
+        "navy": "#EAF7FF",
+        "blue": "#00D9FF",
+        "blue_dark": "#00A8E8",
+        "teal": "#39FFB6",
+        "amber": "#FFC857",
+        "coral": "#FF5D73",
+        "purple": "#A78BFA",
+        "slate": "#8EA7B8",
+        "ink": "#EAF7FF",
+        "muted": "#91A7B6",
+        "border": "#263C49",
+        "surface": "#101A21",
+        "background": "#071015",
+        "grid": "#22333D",
+    },
 }
+
+dashboard_theme = st.session_state.get("dashboard_theme", "Executive Light")
+COLORS = THEME_PRESETS[dashboard_theme]
+IS_COCKPIT = dashboard_theme == "Automotive Cockpit"
 
 FUEL_COLORS = {
     "Petrol": COLORS["blue"],
@@ -418,6 +440,99 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+if IS_COCKPIT:
+    st.markdown(
+        """
+        <style>
+            html, body, [class*="css"] {
+                font-family: "Bahnschrift", "Segoe UI", sans-serif;
+            }
+            .stApp {
+                background:
+                    radial-gradient(circle at 50% -18%, rgba(0,217,255,.15), transparent 34rem),
+                    repeating-linear-gradient(135deg, rgba(255,255,255,.012) 0 1px, transparent 1px 8px),
+                    #071015;
+            }
+            [data-testid="stSidebar"] {
+                background: linear-gradient(180deg, #050A0D, #0B171D 68%, #071015);
+                border-right: 1px solid #263C49;
+            }
+            .hero {
+                border: 1px solid #2D4857;
+                background:
+                    linear-gradient(110deg, rgba(7,16,21,.98), rgba(17,31,39,.96)),
+                    #071015;
+                box-shadow: inset 0 1px rgba(255,255,255,.05), 0 0 34px rgba(0,217,255,.08);
+            }
+            .hero::after {
+                border-color: rgba(0,217,255,.08);
+                box-shadow: 0 0 25px rgba(0,217,255,.08);
+            }
+            .hero__eyebrow, .side-brand__eyebrow { color: #00D9FF; }
+            .context-chip {
+                border-color: #263C49;
+                background: #101A21;
+                color: #9FB5C3;
+                box-shadow: inset 0 1px rgba(255,255,255,.03);
+            }
+            .kpi-card {
+                position: relative;
+                overflow: hidden;
+                border-color: #2A404D;
+                border-top: 1px solid #2A404D;
+                background:
+                    radial-gradient(circle at 88% 22%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 38%),
+                    linear-gradient(145deg, #14222A, #0B1318);
+                box-shadow: inset 0 1px rgba(255,255,255,.05), 0 8px 22px rgba(0,0,0,.28);
+            }
+            .kpi-card::after {
+                content: "";
+                position: absolute;
+                width: 54px;
+                height: 54px;
+                right: 12px;
+                bottom: 10px;
+                border-radius: 50%;
+                border: 5px solid rgba(255,255,255,.07);
+                border-top-color: var(--accent);
+                border-right-color: var(--accent);
+                transform: rotate(30deg);
+                filter: drop-shadow(0 0 5px var(--accent));
+                opacity: .72;
+            }
+            .kpi-card__label { color: #8FA7B5; }
+            .kpi-card__value {
+                position: relative;
+                z-index: 1;
+                color: #F2FBFF;
+                text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 45%, transparent);
+            }
+            .kpi-card__note { color: #8299A7; max-width: 72%; }
+            .insight-card, .callout, [data-testid="stPlotlyChart"],
+            [data-testid="stDataFrame"] {
+                border-color: #263C49;
+                background: #101A21;
+                box-shadow: inset 0 1px rgba(255,255,255,.035), 0 8px 22px rgba(0,0,0,.22);
+            }
+            .insight-card__title, .callout strong { color: #EAF7FF; }
+            .insight-card__body, .callout { color: #91A7B6; }
+            .callout { background: #0C1A21; }
+            [data-baseweb="tab-list"] {
+                border-color: #263C49;
+                background: #0B151B;
+            }
+            [data-baseweb="tab"] { color: #91A7B6; }
+            [aria-selected="true"][data-baseweb="tab"] {
+                color: #051015;
+                background: linear-gradient(90deg, #00D9FF, #39FFB6);
+                box-shadow: 0 0 15px rgba(0,217,255,.22);
+            }
+            .dashboard-footer { border-color: #263C49; color: #718995; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 @st.cache_data(show_spinner=False)
 def load_cleaned_data(path: str, modified_ns: int) -> pd.DataFrame:
@@ -483,6 +598,62 @@ def style_figure(
 
 def plot(figure: go.Figure) -> None:
     st.plotly_chart(figure, width="stretch", config=PLOTLY_CONFIG)
+
+
+def cockpit_gauge(
+    title: str,
+    value: float,
+    maximum: float,
+    *,
+    suffix: str = "",
+    prefix: str = "",
+    accent: str,
+) -> go.Figure:
+    """Build a compact instrument-cluster gauge for the cockpit theme."""
+
+    gauge = go.Figure(
+        go.Indicator(
+            mode="gauge+number",
+            value=value,
+            title={"text": title.upper(), "font": {"size": 12, "color": COLORS["muted"]}},
+            number={
+                "prefix": prefix,
+                "suffix": suffix,
+                "font": {"size": 28, "color": COLORS["ink"]},
+                "valueformat": ",.0f",
+            },
+            gauge={
+                "shape": "angular",
+                "axis": {
+                    "range": [0, maximum],
+                    "tickwidth": 1,
+                    "tickcolor": COLORS["muted"],
+                    "tickfont": {"size": 9, "color": COLORS["muted"]},
+                    "nticks": 6,
+                },
+                "bar": {"color": accent, "thickness": 0.22},
+                "bgcolor": COLORS["surface"],
+                "borderwidth": 1,
+                "bordercolor": COLORS["border"],
+                "steps": [
+                    {"range": [0, maximum * 0.72], "color": "#18262E"},
+                    {"range": [maximum * 0.72, maximum], "color": "#26323A"},
+                ],
+                "threshold": {
+                    "line": {"color": COLORS["amber"], "width": 3},
+                    "thickness": 0.72,
+                    "value": maximum * 0.85,
+                },
+            },
+        )
+    )
+    gauge.update_layout(
+        height=255,
+        margin={"l": 22, "r": 22, "t": 58, "b": 16},
+        paper_bgcolor=COLORS["surface"],
+        font={"family": "Bahnschrift, Segoe UI, sans-serif"},
+    )
+    return gauge
 
 
 def section_heading(title: str, subtitle: str) -> None:
@@ -590,6 +761,14 @@ with st.sidebar:
         </div>
         """,
         unsafe_allow_html=True,
+    )
+
+    st.radio(
+        "Dashboard theme",
+        options=list(THEME_PRESETS),
+        horizontal=True,
+        key="dashboard_theme",
+        help="Switch between the original executive report and an automotive instrument cluster.",
     )
 
     st.markdown("#### Sensitivity")
@@ -966,6 +1145,48 @@ with tabs[0]:
     )
     with first_row_right:
         plot(make_figure)
+
+    if IS_COCKPIT:
+        section_heading(
+            "Live instrument cluster",
+            "Three filter-aware gauges translate portfolio position into an automotive cockpit view.",
+        )
+        gauge_columns = st.columns(3)
+        price_ceiling = max(
+            float(kpis["average_price"]) * 1.2,
+            float(full_data["selling_price"].quantile(0.95)),
+        )
+        mileage_ceiling = max(
+            float(kpis["average_mileage"]) * 1.2,
+            float(full_data["mileage"].quantile(0.95)),
+        )
+        gauge_specs = (
+            (
+                "Average asking price",
+                float(kpis["average_price"]),
+                price_ceiling,
+                {"prefix": "$", "accent": COLORS["blue"]},
+            ),
+            (
+                "Average odometer",
+                float(kpis["average_mileage"]),
+                mileage_ceiling,
+                {"suffix": " mi", "accent": COLORS["amber"]},
+            ),
+            (
+                "No-accident rate",
+                float(kpis["no_accident_rate"] * 100)
+                if pd.notna(kpis["no_accident_rate"])
+                else 0.0,
+                100.0,
+                {"suffix": "%", "accent": COLORS["teal"]},
+            ),
+        )
+        for gauge_column, (title, value, maximum, options) in zip(
+            gauge_columns, gauge_specs, strict=True
+        ):
+            with gauge_column:
+                plot(cockpit_gauge(title, value, maximum, **options))
 
     second_row_left, second_row_right = st.columns([0.78, 1.65])
     fuel_summary = (
